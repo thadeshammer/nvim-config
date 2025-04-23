@@ -1,7 +1,7 @@
 return {
   "stevearc/conform.nvim",
-  -- I don't know what this event trigger is and don't see it on its github as a suggestion
-  -- event = { "BufWritePre" },
+  -- format on save
+  event = { "BufWritePre" }, -- format on save
   config = function()
     require("conform").setup({
       format_on_save = {

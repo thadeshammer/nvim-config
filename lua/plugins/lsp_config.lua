@@ -16,7 +16,7 @@ return {
       end
     end
 
-    lspconfig.ruff.setup({
+    lspconfig.basedpyright.setup({
       settings = {
         basedpyright = {
           venvPath = ".", -- relative to project root
@@ -24,12 +24,14 @@ return {
         },
       },
     })
-
+    
     lspconfig.ruff.setup({})
     lspconfig.bashls.setup({})
 
     vim.diagnostic.config({
-      float = { border = "rounded" },
+      -- border makes it pretty, source will show me error msg source i.e. 'mypy' or 'ruff'
+      float = { border = "rounded", source = "always" },
+      -- virtual_text = { source = "if_many", } -- add source inline if multiple sources
     })
 
     vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "LSP: Show line diagnostics" })

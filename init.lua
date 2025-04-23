@@ -6,6 +6,7 @@ require("thades")
 local is_wsl = vim.fn.has("wsl") == 1 or vim.loop.os_uname().release:lower():find("microsoft") ~= nil
 
 if is_wsl then
+  -- disable in-nvim terminal in WSL, it skyrockets CPU usage
   vim.cmd([[
     function! s:DisableTermWSL() abort
       echohl ErrorMsg
@@ -17,4 +18,7 @@ if is_wsl then
     cabbrev term <C-R>=<SID>DisableTermWSL()<CR>
     cabbrev terminal <C-R>=<SID>DisableTermWSL()<CR>
   ]])
+
+  -- make sure win32yank.exe is only for leader+y and _not_ default yank
+  vim.opt.clipboard = ""
 end
