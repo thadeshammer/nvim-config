@@ -28,8 +28,8 @@ if is_wsl then
         ["*"] = "clip.exe",
       },
       paste = {
-        ["+"] = "powershell.exe -command \"get-clipboard | foreach-object { $_ -replace '\\r', '' }\"",
-        ["*"] = "powershell.exe -command \"get-clipboard | foreach-object { $_ -replace '\\r', '' }\"",
+        ["+"] = "powershell.exe -command \"Get-Clipboard | ForEach-Object { $_ -replace '\\r', '' }\"",
+        ["*"] = "powershell.exe -command \"Get-Clipboard | ForEach-Object { $_ -replace '\\r', '' }\"",
       },
       cache_enabled = 1,
     }
