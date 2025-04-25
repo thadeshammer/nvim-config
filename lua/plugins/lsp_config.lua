@@ -2,6 +2,7 @@ return {
   "neovim/nvim-lspconfig",
   config = function()
     local lspconfig = require("lspconfig")
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     -- Dynamically pick which venv folder exists
     -- Just incase I need it for more than one plugin
@@ -17,6 +18,7 @@ return {
     end
 
     lspconfig.basedpyright.setup({
+      capabilities = capabilities,
       settings = {
         basedpyright = {
           venvPath = ".", -- relative to project root

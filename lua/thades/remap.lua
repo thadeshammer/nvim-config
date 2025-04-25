@@ -30,4 +30,29 @@ vim.keymap.set("n", "<leader>v", "<C-v>", { noremap = true, silent = true })
 
 -- leader+md opens markdown preview in browser
 vim.keymap.set("n", "<leader>md", ":MarkdownPreview<CR>", { desc = "Markdown preview start" })
-vim.keymap.set("n", "<leader>md", ":MarkdownPreviewStop<CR>", { desc = "Markdown preview stop" })
+vim.keymap.set("n", "<leader>ms", ":MarkdownPreviewStop<CR>", { desc = "Markdown preview stop" })
+
+-- leader+lr reload lsp  for this file to rescan it
+vim.keymap.set("n", "<leader>lr", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+
+  for _, client in pairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+    client.stop()
+  end
+
+  vim.cmd("edit")  -- Optional: forces re-read from disk
+  require("conform").format()
+end, { desc = "Restart LSP for current buffer" })
+
+-- telescope controls
+local builtin = require("telescope.builtin")
+
+vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
+vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
+vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
+vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "LSP symbols (document)" })
+vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "LSP references" })
+vim.keymap.set("n", "<leader>fd", builtin.lsp_definitions, { desc = "LSP definitions" })
+vim.keymap.set("n", "<leader>ft", builtin.treesitter, { desc = "Treesitter symbols" })
+

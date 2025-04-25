@@ -17,8 +17,20 @@ if is_wsl then
 
     cabbrev term <C-R>=<SID>DisableTermWSL()<CR>
     cabbrev terminal <C-R>=<SID>DisableTermWSL()<CR>
-  ]])
-
-  -- make sure win32yank.exe is only for leader+y and _not_ default yank
-  vim.opt.clipboard = ""
+    ]])
+    
+    -- clip.exe for leader+y
+    -- this is WAY faster than win32yank and why did I not see this before
+    vim.g.clipboard = {
+      name = "wsl clipboard",
+      copy = {
+        ["+"] = "clip.exe",
+        ["*"] = "clip.exe",
+      },
+      paste = {
+        ["+"] = "powershell.exe Get-Clipboard",
+        ["*"] = "powershell.exe Get-Clipboard",
+      },
+      cache_enabled = 1,
+    }
 end

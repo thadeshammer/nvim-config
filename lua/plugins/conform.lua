@@ -3,18 +3,36 @@ return {
   -- format on save
   event = { "BufWritePre" }, -- format on save
   config = function()
+
     require("conform").setup({
+
       format_on_save = {
         lsp_fallback = true,
         timeout_ms = 500,
       },
+
       formatters_by_ft = {
-        python = { "isort", "ruff" },
+        python = { "isort", "ruff_format" },
         sh = { "shfmt" },
         bash = { "shfmt" },
         json = { "prettier" },
         markdown = { "prettier" },
       },
+
+      formatters = {
+        ruff_format = {
+          command = "ruff",
+          args = { "format", "--stdin-filename", "$FILENAME", "-" },
+          stdin = true,
+        },
+      },
+
+      isort = {
+        command = "./.venv/bin/isort",  -- explicitly use project-local
+        args = { "-" },
+        stdin = true,
+      },
+
     })
 
     vim.keymap.set("n", "<leader>f", function()
