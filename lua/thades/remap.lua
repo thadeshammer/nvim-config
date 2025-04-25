@@ -1,5 +1,9 @@
 vim.g.mapleader = " "
 
+-- turn off the fatfinger traps
+-- close windows with :q or :close deliberately; I'm so sick of ctrl-w,c closing shit on me.
+vim.keymap.set("n", "<C-w>c", "<Nop>", { noremap = true, silent = true })
+
 -- leader+pv opens netrw
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
@@ -55,4 +59,13 @@ vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "LSP sy
 vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "LSP references" })
 vim.keymap.set("n", "<leader>fd", builtin.lsp_definitions, { desc = "LSP definitions" })
 vim.keymap.set("n", "<leader>ft", builtin.treesitter, { desc = "Treesitter symbols" })
+
+-- Leader+" trigger Neogen docstring generation
+-- vim.keymap.set("n", "<leader>c", function()
+--   vim.cmd("Neogen")
+-- end, { noremap = true, silent = true, desc = "Generate docstring with Neogen" })
+
+vim.keymap.set("n", "<leader>c", function()
+  require('neogen').generate()
+end, { desc = "Generate docstring with Neogen" })
 
