@@ -7,21 +7,9 @@ vim.keymap.set("n", "<C-w>c", "<Nop>", { noremap = true, silent = true })
 -- leader+pv opens netrw
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
--- leader+y yank to win32yank; leader+p paste from win32yank
+-- leader+y yank to system clipboard; leader+p paste from system clipboard
 vim.keymap.set("v", "<leader>y", '"+y', { desc = "Yank to system clipboard" })
 vim.keymap.set("n", "<leader>y", '"+yy', { desc = "Yank line to system clipboard" })
-
--- leader+p paste from system clipboard needs to be OS aware
--- note this is pretty janky, best not to trust leader+p <_< I may remove this
-vim.keymap.set("n", "<leader>p", function()
-  local is_wsl = vim.fn.has("wsl") == 1 or vim.loop.os_uname().release:lower():find("microsoft") ~= nil
-
-  if is_wsl then
-    vim.cmd([[r !win32yank.exe -o --lf]])
-  else
-    vim.cmd('normal "+p')
-  end
-end, { desc = "Paste from system clipboard (smart WSL-safe)" })
 
 -- Keymaps for moving lines, alt+[dir] moves line(s)
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==")
@@ -48,6 +36,12 @@ vim.keymap.set("n", "<leader>lr", function()
   require("conform").format()
 end, { desc = "Restart LSP for current buffer" })
 
+-- leader+lf just format with ruff
+vim.keymap.set("n", "<leader>lf", function()
+  vim.lsp.buf.format({ async = true })
+end, { noremap = true, silent = true, desc = "LSP format buffer" })
+
+
 -- telescope controls
 local builtin = require("telescope.builtin")
 
@@ -61,11 +55,11 @@ vim.keymap.set("n", "<leader>fd", builtin.lsp_definitions, { desc = "LSP definit
 vim.keymap.set("n", "<leader>ft", builtin.treesitter, { desc = "Treesitter symbols" })
 
 -- Leader+" trigger Neogen docstring generation
--- vim.keymap.set("n", "<leader>c", function()
---   vim.cmd("Neogen")
--- end, { noremap = true, silent = true, desc = "Generate docstring with Neogen" })
-
 vim.keymap.set("n", "<leader>c", function()
   require('neogen').generate()
 end, { desc = "Generate docstring with Neogen" })
+
+-- leader+/ to comment out stuff
+vim.keymap.set("n", "<leader>/", ":normal gcc<CR>", { noremap = true, silent = true })
+vim.keymap.set("v", "<leader>/", ":normal gc<CR>", { noremap = true, silent = true })
 
