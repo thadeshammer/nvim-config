@@ -25,6 +25,10 @@ return {
           args = { "format", "--stdin-filename", "$FILENAME", "-" },
           stdin = true,
         },
+        prettier = {
+          prepend_args = { "--prose-wrap", "always", "--print-width", "120" },
+        },
+
       },
 
       isort = {
