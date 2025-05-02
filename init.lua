@@ -2,6 +2,10 @@ require("config.lazy")
 
 require("thades")
 
+-- reduce modifier key time hopefully
+vim.o.timeout = true
+vim.o.timeoutlen = 400
+
 -- if this is WSL, we want to disable the terminal
 local is_wsl = vim.fn.has("wsl") == 1 or vim.loop.os_uname().release:lower():find("microsoft") ~= nil
 

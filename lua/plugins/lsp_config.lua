@@ -4,6 +4,8 @@ return {
     local lspconfig = require("lspconfig")
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+    lspconfig.dockerls.setup{}
+
     -- Dynamically pick which venv folder exists
     -- Just incase I need it for more than one plugin
     local function detect_venv()
