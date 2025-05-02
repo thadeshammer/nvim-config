@@ -1,9 +1,4 @@
 return {
-  -- (passive) syntax highlighting
-  { "nvim-treesitter/nvim-treesitter",
-    build = ':TSUpdate'
-  },
-
   -- :Git
   -- https://github.com/tpope/vim-fugitive
   {
