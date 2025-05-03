@@ -5,6 +5,10 @@ return {
     "tpope/vim-fugitive"
   },
 
+  {
+    "lewis6991/gitsigns.nvim"
+  },
+
   -- ctrl-e for favorite file shortcut menu (for given proj dir)
   { "ThePrimeagen/harpoon",
     branch = "harpoon2",
