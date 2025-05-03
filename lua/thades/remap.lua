@@ -36,11 +36,10 @@ vim.keymap.set("n", "<leader>lr", function()
   require("conform").format()
 end, { desc = "Restart LSP for current buffer" })
 
--- leader+lf just format with ruff
-vim.keymap.set("n", "<leader>lf", function()
+-- leader+lr just format with ruff
+vim.keymap.set("n", "<leader>lr", function()
   vim.lsp.buf.format({ async = true })
-end, { noremap = true, silent = true, desc = "LSP format buffer" })
-
+end, { desc = "Format with Ruff" })
 
 -- telescope controls
 local builtin = require("telescope.builtin")

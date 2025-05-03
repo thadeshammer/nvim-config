@@ -17,10 +17,6 @@ return {
 
       require("luasnip.loaders.from_vscode").lazy_load()
       require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/lua/snippets" })
-      
-      -- my precious docstring def is here
-      -- dofile(vim.fn.stdpath("config") .. "/after/plugin/python_snippets.lua")
-      -- dofile(vim.fn.stdpath("config") .. "~/.config/nvim/after/plugin/python_snippets.lua")
 
       cmp.setup({
         snippet = {
@@ -32,6 +28,15 @@ return {
           ["<Tab>"] = cmp.mapping.select_next_item(),
           ["<S-Tab>"] = cmp.mapping.select_prev_item(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
+
+          -- remaps Esc to cancel auto-complete instead of jump to normal mode (i like to live dangerously)
+          ["<Esc>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.close()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
