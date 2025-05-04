@@ -38,6 +38,16 @@ return {
               fallback()
             end
           end, { "i", "s" }),
+
+          -- remaps Enter to cancel auto-complete and put a literal carriage return to keep typing 
+          ["<CR>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.close()
+              vim.api.nvim_feedkeys("\n", "n", true) -- Insert newline
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
