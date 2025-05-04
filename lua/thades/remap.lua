@@ -62,3 +62,5 @@ end, { desc = "Generate docstring with Neogen" })
 vim.keymap.set("n", "<leader>/", ":normal gcc<CR>", { noremap = true, silent = true })
 vim.keymap.set("v", "<leader>/", ":normal gc<CR>", { noremap = true, silent = true })
 
+-- rename symbol across project; needs lsp/basedpyright to have "workspace" diagnostic mode
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename Symbol" })

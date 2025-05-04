@@ -3,7 +3,11 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   config = function()
     local lspconfig = require("lspconfig")
+    
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    -- fixes WARNING Found buffers attached to multiple clients with different position encodings.
+    capabilities.offsetEncoding = { "utf-8" }
+
     local util = require("lspconfig.util")
 
     -- Dynamically pick which venv folder exists
@@ -29,6 +33,9 @@ return {
           typeCheckingMode = "standard",
           reportMissingImports = true,
           venvPath = venv_path,
+          analysis = {
+            diagnosticMode = "workspace",
+          },
         },
       },
 

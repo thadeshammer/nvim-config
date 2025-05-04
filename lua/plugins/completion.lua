@@ -29,10 +29,11 @@ return {
           ["<S-Tab>"] = cmp.mapping.select_prev_item(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
 
-          -- remaps Esc to cancel auto-complete instead of jump to normal mode (i like to live dangerously)
-          ["<Esc>"] = cmp.mapping(function(fallback)
+          -- remaps Space to cancel auto-complete and put a literal space to keep typing 
+          ["<Space>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
-              cmp.close()
+              cmp.close() -- space key closes the auto-complete pop-up
+              vim.api.nvim_feedkeys(" ", "n", true) -- Insert a literal space
             else
               fallback()
             end
