@@ -1,7 +1,12 @@
 local harpoon = require("harpoon")
 
 -- -- REQUIRED
-harpoon:setup()
+harpoon:setup({
+  settings = {
+    save_on_toggle = true,
+    sync_on_ui_close = true,
+  }
+})
 -- -- REQUIRED
 
 vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end)
@@ -15,9 +20,4 @@ vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
 -- -- Toggle previous & next buffers stored within Harpoon list
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
-
--- remove current file from harpoon list
-vim.keymap.set("n", "<leader>hd", function()
-  require("harpoon"):list():remove()
-end, { desc = "Remove file from Harpoon" })
 

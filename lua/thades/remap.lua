@@ -52,6 +52,7 @@ vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "LSP sy
 vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "LSP references" })
 vim.keymap.set("n", "<leader>fd", builtin.lsp_definitions, { desc = "LSP definitions" })
 vim.keymap.set("n", "<leader>ft", builtin.treesitter, { desc = "Treesitter symbols" })
+vim.keymap.set("n", "<leader>ld", "<cmd>Telescope diagnostics<CR>", { desc = "Telescope: list diagnostics" })
 
 -- Leader+" trigger Neogen docstring generation
 vim.keymap.set("n", "<leader>c", function()
@@ -64,3 +65,12 @@ vim.keymap.set("v", "<leader>/", ":normal gc<CR>", { noremap = true, silent = tr
 
 -- rename symbol across project; needs lsp/basedpyright to have "workspace" diagnostic mode
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename Symbol" })
+
+-- inject project path + file name on current line (uses cwd)
+vim.keymap.set("n", "<leader>fp", function()
+  vim.api.nvim_put({ vim.fn.fnamemodify(vim.fn.expand("%"), ":.") }, "c", true, true)
+end, { desc = "Insert relative file path at cursor" })
+
+-- harpoon
+-- vim.keymap.set("n", "<leader>ha", require("harpoon.mark").add_file)
+-- vim.keymap.set("n", "<leader>hr", require("harpoon.mark").rm_file)
