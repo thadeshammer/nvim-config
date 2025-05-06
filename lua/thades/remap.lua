@@ -50,9 +50,9 @@ vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
 vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "LSP symbols (document)" })
 vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "LSP references" })
-vim.keymap.set("n", "<leader>fd", builtin.lsp_definitions, { desc = "LSP definitions" })
+vim.keymap.set("n", "<leader>fd", builtin.lsp_definitions, { desc = "goto LSP definition" })
 vim.keymap.set("n", "<leader>ft", builtin.treesitter, { desc = "Treesitter symbols" })
-vim.keymap.set("n", "<leader>ld", "<cmd>Telescope diagnostics<CR>", { desc = "Telescope: list diagnostics" })
+vim.keymap.set("n", "<leader>fi", "<cmd>Telescope diagnostics<CR>", { desc = "Telescope: list diagnostics" })
 
 -- Leader+" trigger Neogen docstring generation
 vim.keymap.set("n", "<leader>c", function()
