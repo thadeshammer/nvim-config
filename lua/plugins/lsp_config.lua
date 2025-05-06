@@ -30,10 +30,6 @@ return {
       root_dir = vim.fn.getcwd(),
       settings = {
         basedpyright = {
-          -- trying to move these core settings out to pyrightconfig.json
-          -- typeCheckingMode = "standard",
-          -- reportUnusedImport = false,
-          -- reportMissingImports = true,
           venvPath = venv_path,
           analysis = {
             diagnosticMode = "workspace",
