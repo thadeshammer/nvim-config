@@ -54,7 +54,18 @@ return {
     }
   },
 
-    -- todo-comments.nvim configuration
+  -- keep the current function name at the top of the window
+  -- {
+  --   "nvim-treesitter/nvim-treesitter-context",
+  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
+  --   config = function()
+  --     require("nvim-treesitter-context").setup({
+  --       enable = true,
+  --     })
+  --   end,
+  -- },
+
+  -- todo-comments.nvim configuration
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" },

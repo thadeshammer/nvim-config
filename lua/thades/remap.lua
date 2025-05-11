@@ -54,8 +54,8 @@ vim.keymap.set("n", "<leader>fd", builtin.lsp_definitions, { desc = "goto LSP de
 vim.keymap.set("n", "<leader>ft", builtin.treesitter, { desc = "Treesitter symbols" })
 vim.keymap.set("n", "<leader>fi", "<cmd>Telescope diagnostics<CR>", { desc = "Telescope: list diagnostics" })
 
--- Leader+" trigger Neogen docstring generation
-vim.keymap.set("n", "<leader>c", function()
+-- Leader+cc trigger Neogen docstring generation
+vim.keymap.set("n", "<leader>cc", function()
   require('neogen').generate()
 end, { desc = "Generate docstring with Neogen" })
 
@@ -67,7 +67,7 @@ vim.keymap.set("v", "<leader>/", ":normal gc<CR>", { noremap = true, silent = tr
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename Symbol" })
 
 -- inject project path + file name on current line (uses cwd)
-vim.keymap.set("n", "<leader>fp", function()
+vim.keymap.set("n", "<leader>cf", function()
   vim.api.nvim_put({ vim.fn.fnamemodify(vim.fn.expand("%"), ":.") }, "c", true, true)
 end, { desc = "Insert relative file path at cursor" })
 
