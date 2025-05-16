@@ -38,3 +38,26 @@ if is_wsl then
       cache_enabled = 1,
     }
 end
+
+-- disable wordwrap for source code files (list obviously not exhaustive)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "python",
+    "lua",
+    "javascript",
+    "typescript",
+    "c",         -- C
+    "cpp",       -- C++
+    "gdscript",  -- Godot GDScript
+    "gdshader",  -- (Godot shader files)
+    "java",
+    "sh",        -- bash / shell scripts
+    "bash",
+    "rust",
+  },
+  callback = function()
+    vim.opt_local.formatoptions:remove("t")
+    vim.opt_local.textwidth = 0
+  end,
+})
+

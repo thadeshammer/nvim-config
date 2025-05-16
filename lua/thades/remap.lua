@@ -12,10 +12,10 @@ vim.keymap.set("v", "<leader>y", '"+y', { desc = "Yank to system clipboard" })
 vim.keymap.set("n", "<leader>y", '"+yy', { desc = "Yank line to system clipboard" })
 
 -- Keymaps for moving lines, alt+[dir] moves line(s)
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==")
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==")
-vim.keymap.set("x", "<A-j>", ":m '>+1<CR>gv=gv")
-vim.keymap.set("x", "<A-k>", ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "<leader>j", ":m .+1<CR>==")
+vim.keymap.set("n", "<leader>k", ":m .-2<CR>==")
+vim.keymap.set("x", "<leader>j", ":m '>+1<CR>gv=gv")
+vim.keymap.set("x", "<leader>k", ":m '<-2<CR>gv=gv")
 
 -- leader+v opens visual block mode (because ctrl-v in windows is paste)
 vim.keymap.set("n", "<leader>v", "<C-v>", { noremap = true, silent = true })
@@ -45,6 +45,14 @@ end, { desc = "Format with Ruff" })
 local builtin = require("telescope.builtin")
 
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
+vim.keymap.set("n", "<leader>fF", function()
+  require("telescope.builtin").find_files({
+    prompt_title = "Find All Files",
+    hidden    = true,
+    no_ignore = false,   -- keep respecting .gitignore if you like
+    follow    = true,    -- follow symlinks
+  })
+end, { desc = "Find any file (including dotfiles)" })
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
