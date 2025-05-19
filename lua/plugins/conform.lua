@@ -16,7 +16,9 @@ return {
         sh = { "shfmt" },
         bash = { "shfmt" },
         json = { "prettier" },
+        lua = { "stylua" },
         markdown = { "prettier" },
+        rust = { "rustfmt" }
       },
 
       formatters = {
@@ -28,6 +30,11 @@ return {
         prettier = {
           prepend_args = { "--prose-wrap", "always", "--print-width", "120" },
         },
+        rustfmt = {
+          command = "rustfmt",
+          args = {"--emit=stdout"},
+          stdin = "true"
+        }
 
       },
 
