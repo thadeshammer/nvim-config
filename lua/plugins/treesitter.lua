@@ -57,15 +57,15 @@ return {
 
 	-- TODO: get this working
 	-- keep the current function name at the top of the window
-	-- {
-	--   "nvim-treesitter/nvim-treesitter-context",
-	--   dependencies = { "nvim-treesitter/nvim-treesitter" },
-	--   config = function()
-	--     require("nvim-treesitter-context").setup({
-	--       enable = true,
-	--     })
-	--   end,
-	-- },
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("treesitter-context").setup({
+				enable = true,
+			})
+		end,
+	},
 
 	-- todo-comments.nvim configuration
 	{
