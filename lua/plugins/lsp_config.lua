@@ -49,6 +49,22 @@ return {
 
 		-- == END PYTHON SPECIFICS == --
 
+		lspconfig.rust_analyzer.setup({
+			settings = {
+				["rust-analyzer"] = {
+					checkOnSave = {
+						command = "clippy",
+					},
+					diagnostics = {
+						enable = true,
+						experimental = {
+							enable = true,
+						},
+					},
+				},
+			},
+		})
+
 		lspconfig.bashls.setup({})
 		lspconfig.dockerls.setup({})
 

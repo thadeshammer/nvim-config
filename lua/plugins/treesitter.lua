@@ -80,18 +80,22 @@ return {
 					alt = { "fixme", "bug", "fixit", "issue", "FIXME", "BUG", "FIXIT", "ISSUE" },
 					-- signs = false, -- configure signs for some keywords individually
 				},
-				TODO = { icon = "", color = "info", alt = { "todo" } },
-				HACK = { icon = "", color = "warning", alt = { "hack" } },
-				WARN = { icon = "", color = "warning", alt = { "warning", "xxx", "WARNING", "XXX" } },
+				TODO = { icon = "", color = "info", alt = { "todo", "Todo" } },
+				HACK = { icon = "", color = "warning", alt = { "hack", "Hack" } },
+				WARN = {
+					icon = "",
+					color = "warning",
+					alt = { "warning", "xxx", "WARNING", "XXX", "Warn", "Warning" },
+				},
 				PERF = {
 					icon = "",
 					alt = { "optim", "performance", "optimize", "OPTIM", "PERFORMANCE", "OPTIMIZE" },
 				},
-				NOTE = { icon = "", color = "hint", alt = { "info", "INFO" } },
+				NOTE = { icon = "", color = "hint", alt = { "info", "INFO", "note", "notes", "Note", "Notes" } },
 				TEST = {
 					icon = "",
 					color = "test",
-					alt = { "testing", "passed", "failed", "TESTING", "PASSED", "FAILED" },
+					alt = { "testing", "passed", "failed", "TESTING", "PASSED", "FAILED", "Test" },
 				},
 			},
 
