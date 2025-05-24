@@ -55,7 +55,6 @@ return {
 		},
 	},
 
-	-- TODO: get this working
 	-- keep the current function name at the top of the window
 	{
 		"nvim-treesitter/nvim-treesitter-context",
