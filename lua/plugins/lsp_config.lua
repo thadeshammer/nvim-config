@@ -1,79 +1,80 @@
 return {
-	"neovim/nvim-lspconfig",
-	event = { "BufReadPre", "BufNewFile" },
-	config = function()
-		local lspconfig = require("lspconfig")
+  "neovim/nvim-lspconfig",
+  event = { "BufReadPre", "BufNewFile" },
+  config = function()
+    local lspconfig = require("lspconfig")
 
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-		-- fixes WARNING Found buffers attached to multiple clients with different position encodings.
-		capabilities.offsetEncoding = { "utf-8" }
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    -- fixes WARNING Found buffers attached to multiple clients with different position encodings.
+    capabilities.offsetEncoding = { "utf-8" }
 
-		local util = require("lspconfig.util")
+    local util = require("lspconfig.util")
 
-		-- == PYTHON SPECIFICS == --
+    -- == PYTHON SPECIFICS == --
 
-		-- Dynamically pick which venv folder exists
-		-- Just incase I need it for more than one plugin
-		local function detect_venv()
-			local cwd = vim.fn.getcwd()
-			if vim.fn.isdirectory(cwd .. "/.venv") == 1 then
-				return ".venv", cwd
-			elseif vim.fn.isdirectory(cwd .. "/venv") == 1 then
-				return "venv", cwd
-			else
-				return nil, nil
-			end
-		end
+    -- Dynamically pick which venv folder exists
+    -- Just incase I need it for more than one plugin
+    local function detect_venv()
+      local cwd = vim.fn.getcwd()
+      if vim.fn.isdirectory(cwd .. "/.venv") == 1 then
+        return ".venv", cwd
+      elseif vim.fn.isdirectory(cwd .. "/venv") == 1 then
+        return "venv", cwd
+      else
+        return nil, nil
+      end
+    end
 
-		local venv, venv_path = detect_venv()
+    local venv, venv_path = detect_venv()
 
-		lspconfig.basedpyright.setup({
-			capabilities = capabilities,
-			root_dir = vim.fn.getcwd(),
-			settings = {
-				basedpyright = {
-					venvPath = venv_path,
-					analysis = {
-						diagnosticMode = "workspace",
-					},
-				},
-			},
+    lspconfig.basedpyright.setup({
+      capabilities = capabilities,
+      root_dir = vim.fn.getcwd(),
+      settings = {
+        basedpyright = {
+          venvPath = venv_path,
+          analysis = {
+            diagnosticMode = "workspace",
+          },
+        },
+      },
 
-			on_attach = function(client, bufnr)
-				-- bufnr doesn't exist in global scope, this keymap needs to happen here in on_attach.
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP hover doc" })
-			end,
-		})
+      on_attach = function(client, bufnr)
+        -- bufnr doesn't exist in global scope, this keymap needs to happen here in on_attach.
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP hover doc" })
+      end,
+    })
 
-		lspconfig.ruff.setup({})
+    lspconfig.ruff.setup({})
 
-		-- == END PYTHON SPECIFICS == --
+    -- == END PYTHON SPECIFICS == --
 
-		lspconfig.rust_analyzer.setup({
-			settings = {
-				["rust-analyzer"] = {
-					checkOnSave = {
-						command = "clippy",
-					},
-					diagnostics = {
-						enable = true,
-						experimental = {
-							enable = true,
-						},
-					},
-				},
-			},
-		})
+    lspconfig.rust_analyzer.setup({
+      settings = {
+        ["rust-analyzer"] = {
+          checkOnSave = {
+            command = "clippy",
+          },
+          diagnostics = {
+            enable = true,
+            experimental = {
+              enable = true,
+            },
+          },
+        },
+      },
+    })
 
-		lspconfig.bashls.setup({})
-		lspconfig.dockerls.setup({})
+    lspconfig.bashls.setup({})
+    lspconfig.dockerls.setup({})
 
-		vim.diagnostic.config({
-			-- border makes it pretty, source will show me error msg source i.e. 'mypy' or 'ruff'
-			float = { border = "rounded", source = "always" },
-			-- virtual_text = { source = "if_many", } -- add source inline if multiple sources
-		})
+    vim.diagnostic.config({
+      -- border makes it pretty, source will show me error msg source i.e. 'mypy' or 'ruff'
+      float = { border = "rounded", source = "always" },
+      severity_sort = true,
+      -- virtual_text = { source = "if_many", } -- add source inline if multiple sources
+    })
 
-		vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "LSP: Show line diagnostics" })
-	end,
+    vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "LSP: Show line diagnostics" })
+  end,
 }
