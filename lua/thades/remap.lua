@@ -32,7 +32,7 @@ vim.keymap.set("n", "<leader>lr", function()
     client.stop()
   end
 
-  vim.cmd("edit")  -- Optional: forces re-read from disk
+  vim.cmd("edit") -- Optional: forces re-read from disk
   require("conform").format()
 end, { desc = "Restart LSP for current buffer" })
 
@@ -48,9 +48,9 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
 vim.keymap.set("n", "<leader>fF", function()
   require("telescope.builtin").find_files({
     prompt_title = "Find All Files",
-    hidden    = true,
-    no_ignore = false,   -- keep respecting .gitignore if you like
-    follow    = true,    -- follow symlinks
+    hidden = true,
+    no_ignore = false, -- keep respecting .gitignore if you like
+    follow = true, -- follow symlinks
   })
 end, { desc = "Find any file (including dotfiles)" })
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
@@ -61,10 +61,16 @@ vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "LSP referenc
 vim.keymap.set("n", "<leader>fd", builtin.lsp_definitions, { desc = "goto LSP definition" })
 vim.keymap.set("n", "<leader>ft", builtin.treesitter, { desc = "Treesitter symbols" })
 vim.keymap.set("n", "<leader>fi", "<cmd>Telescope diagnostics<CR>", { desc = "Telescope: list diagnostics" })
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader><leader>",
+  [[<cmd>lua require('telescope').extensions.recent_files.pick()<CR>]],
+  { noremap = true, silent = true }
+)
 
 -- Leader+cc trigger Neogen docstring generation
 vim.keymap.set("n", "<leader>cc", function()
-  require('neogen').generate()
+  require("neogen").generate()
 end, { desc = "Generate docstring with Neogen" })
 
 -- leader+/ to comment out stuff

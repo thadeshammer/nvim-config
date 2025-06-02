@@ -10,6 +10,12 @@ vim.o.timeoutlen = 400
 local is_wsl = vim.fn.has("wsl") == 1 or vim.loop.os_uname().release:lower():find("microsoft") ~= nil
 
 if is_wsl then
+  -- prevent windows CRLF line endings
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*",
+    command = [[%s/\r\+$//e]],
+  })
+
   -- disable in-nvim terminal in WSL, it skyrockets CPU usage
   vim.cmd([[
     function! s:DisableTermWSL() abort
