@@ -1,12 +1,13 @@
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
+  -- local on_attach = function(client, bufnr)
+  --   client.offset_encoding = 'utf-16'
+  -- end
   config = function()
     local lspconfig = require("lspconfig")
 
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
-    -- fixes WARNING Found buffers attached to multiple clients with different position encodings.
-    capabilities.offsetEncoding = { "utf-8" }
 
     local util = require("lspconfig.util")
 
@@ -36,6 +37,8 @@ return {
           analysis = {
             diagnosticMode = "workspace",
           },
+          -- exclude venv from analysis
+          exclude = { "**/.venv/**", "**/venv/**" },
         },
       },
 
