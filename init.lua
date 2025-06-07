@@ -4,7 +4,7 @@ require("thades")
 
 -- reduce modifier key time hopefully
 vim.o.timeout = true
-vim.o.timeoutlen = 400
+vim.o.timeoutlen = 800
 
 -- if this is WSL, we want to disable the terminal
 local is_wsl = vim.fn.has("wsl") == 1 or vim.loop.os_uname().release:lower():find("microsoft") ~= nil
@@ -68,5 +68,23 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.formatoptions:append("r") -- continue comment on newline
     vim.opt_local.formatoptions:append("n") -- recognize numbered lists
     vim.opt_local.textwidth = 100
+  end,
+})
+
+-- At start up check for .venv / venv and if present, warn if $VIRTUAL_ENV is not set
+vim.api.nvim_create_augroup("CheckVenvOnEnter", { clear = true })
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = "CheckVenvOnEnter",
+  -- pattern = { "*.py", "**/*.py" },
+  callback = function()
+    local cwd = vim.fn.getcwd()
+    local venv_exists = vim.fn.isdirectory(cwd .. "/.venv") == 1 or vim.fn.isdirectory(cwd .. "/venv") == 1
+    local virtual_env_not_set = vim.fn.empty(vim.env.VIRTUAL_ENV or "") == 1
+    if venv_exists and virtual_env_not_se then
+      vim.notify(
+        "WARNING! Found virtualenv folder but VIRTUAL_ENV not set. Did you forget to activate?",
+        vim.log.levels.WARN
+      )
+    end
   end,
 })
