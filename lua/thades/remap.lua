@@ -1,5 +1,8 @@
 vim.g.mapleader = " "
 
+-- jk escape
+vim.keymap.set("i", "jk", "<esc>", { noremap = true, silent = true })
+
 -- turn off the fatfinger traps
 -- close windows with :q or :close deliberately; I'm so sick of ctrl-w,c closing shit on me.
 vim.keymap.set("n", "<C-w>c", "<Nop>", { noremap = true, silent = true })
