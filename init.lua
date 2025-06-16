@@ -31,11 +31,18 @@ if is_wsl then
 
   -- clip.exe for leader+y
   -- this is WAY faster than win32yank and why did I not see this before
+  -- note: iconv is used to prevent utf-8 non-English characters from being mangled when landing in
+  -- Windows; and powershell replace is used to redact Windows line-endings when landing in nvim.
   vim.g.clipboard = {
     name = "wsl clipboard",
+    -- This copy works but does not emit utf-8 to utf-16 correctly so pasting non-English characters
+    -- out to Windows fails / gets mangled.
+    -- So far I've tried six ways to Sunday of piping the buffer through iconv to get it to utf-16
+    -- for Windows but either it's still mangled or I cannot get WsL+Lua+bash+Windows to all agree
+    -- on what an EOF looks like; so the problem is Windows really.
     copy = {
-      ["+"] = "clip.exe",
-      ["*"] = "clip.exe",
+      ["+"] = [[clip.exe]],
+      ["*"] = [[clip.exe]],
     },
     paste = {
       ["+"] = "powershell.exe -command \"Get-Clipboard | ForEach-Object { $_ -replace '\\r', '' }\"",
