@@ -16,14 +16,16 @@ sudo apt install build-essential
 
 ### Language Servers
 
+- global via `apt`
+  - bash formatter: `sudo apt install shfmt`
+- global via `cargo`:
+  - `cargo install stylua`
 - global via `npm`
   - `bash-language-server`: `npm install -g bash-language-server`
   - everyone's favorite formatter `prettier`: `npm install -g prettier`
   - `npm install -g yarn` then `yarn install && yarn build && yarn run`
     - No, I don't remember what those three invocations do, Thades.
-- global via `apt`
-  - bash formatter: `sudo apt install shfmt`
-- in `.venv`
+- not global, in `.venv`
   - formatter: `pip install ruff`
   - import sort: `pip install isort`
   - linting: `pip install basedpyright-langserver`

@@ -1,4 +1,5 @@
-require("thades.remap")
-require("thades.tabs_and_spaces")
 require("thades.colors")
+require("thades.neovide")
+require("thades.remap")
 require("thades.substitutions")
+require("thades.tabs_and_spaces")

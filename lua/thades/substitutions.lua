@@ -16,4 +16,3 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("i", "->", "→", { buffer = args.buf, desc = "Replace -> with →" })
   end,
 })
-

@@ -1,5 +1,4 @@
 vim.g.mapleader = " "
-
 -- jk escape
 vim.keymap.set("i", "jk", "<esc>", { noremap = true, silent = true })
 
@@ -13,6 +12,13 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 -- leader+y yank to system clipboard; leader+p paste from system clipboard
 vim.keymap.set("v", "<leader>y", '"+y', { desc = "Yank to system clipboard" })
 vim.keymap.set("n", "<leader>y", '"+yy', { desc = "Yank line to system clipboard" })
+if not is_wsl then
+  vim.keymap.set("n", "<S-Insert>", '"+p', { desc = "Paste from the system clipboard" })
+
+  vim.keymap.set("i", "<S-Insert>", function()
+    vim.api.nvim_put({ vim.fn.getreg("+") }, "c", true, true)
+  end, { desc = "Paste from system clipboard" })
+end
 
 -- Keymaps for moving lines, alt+[dir] moves line(s)
 vim.keymap.set("n", "<leader>j", ":m .+1<CR>==")
