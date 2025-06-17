@@ -16,16 +16,31 @@ sudo apt install build-essential
 
 ### Language Servers
 
-- global via `apt`
-  - bash formatter: `sudo apt install shfmt`
-- global via `cargo`:
-  - `cargo install stylua`
-- global via `npm`
-  - `bash-language-server`: `npm install -g bash-language-server`
-  - everyone's favorite formatter `prettier`: `npm install -g prettier`
-  - `npm install -g yarn` then `yarn install && yarn build && yarn run`
-    - No, I don't remember what those three invocations do, Thades.
-- not global, in `.venv`
-  - formatter: `pip install ruff`
-  - import sort: `pip install isort`
-  - linting: `pip install basedpyright-langserver`
+#### bash
+
+- formatter: `sudo apt install shfmt`
+- `bash-language-server`: `npm install -g bash-language-server`
+
+#### lua
+
+- `cargo install stylua`
+
+#### markdown
+
+- everyone's favorite formatter `prettier`: `npm install -g prettier`
+- `npm install -g yarn` then `yarn install && yarn build && yarn run`
+  - No, I don't remember what those three invocations do, Thades.
+
+#### python
+
+not global, in `.venv`
+
+- formatter: `pip install ruff`
+- import sort: `pip install isort`
+- linting: `pip install basedpyright-langserver`
+
+#### rust
+
+get rustup installer (windows, d/l it; there's a curl command for linux), run it, then:
+
+- rustup component add rust-analyzer
