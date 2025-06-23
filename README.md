@@ -21,6 +21,10 @@ sudo apt install build-essential
 - formatter: `sudo apt install shfmt`
 - `bash-language-server`: `npm install -g bash-language-server`
 
+#### Docker
+
+- npm install -g dockerfile-language-server-nodejs
+
 #### lua
 
 - `cargo install stylua`
