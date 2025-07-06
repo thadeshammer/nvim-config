@@ -6,6 +6,15 @@ vim.keymap.set("i", "jk", "<esc>", { noremap = true, silent = true })
 -- close windows with :q or :close deliberately; I'm so sick of ctrl-w,c closing shit on me.
 vim.keymap.set("n", "<C-w>c", "<Nop>", { noremap = true, silent = true })
 
+-- remap j and k movement in normal mode to respect visual instead of physical lines
+vim.keymap.set("n", "k", function()
+  return vim.v.count == 0 and "gk" or "k"
+end, { expr = true, silent = true })
+
+vim.keymap.set("n", "j", function()
+  return vim.v.count == 0 and "gj" or "j"
+end, { expr = true, silent = true })
+
 -- leader+pv opens netrw
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
