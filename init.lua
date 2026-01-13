@@ -6,7 +6,7 @@ require("thades")
 vim.o.timeout = true
 vim.o.timeoutlen = 800
 
--- if this is WSL, we want to disable the terminal
+-- if this is WSL, we want to disable the in-nvim terminal
 local is_wsl = vim.fn.has("wsl") == 1 or vim.loop.os_uname().release:lower():find("microsoft") ~= nil
 
 if is_wsl then
