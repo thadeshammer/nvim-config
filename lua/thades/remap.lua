@@ -54,7 +54,7 @@ vim.keymap.set("n", "<leader>lr", function()
   require("conform").format()
 end, { desc = "Restart LSP for current buffer" })
 
--- leader+lr just format with ruff
+-- leader+lr trigger formatter
 vim.keymap.set("n", "<leader>lr", function()
   vim.lsp.buf.format({ async = true })
 end, { desc = "Format with Ruff" })

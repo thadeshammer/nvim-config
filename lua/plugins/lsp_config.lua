@@ -1,7 +1,6 @@
 -- Dynamically pick which venv folder exists
 -- Just incase I need it for more than one plugin
-local function detect_venv()
-  local cwd = vim.fn.getcwd()
+local function detect_venv(cwd)
   if vim.fn.isdirectory(cwd .. "/.venv") == 1 then
     return ".venv", cwd
   elseif vim.fn.isdirectory(cwd .. "/venv") == 1 then
@@ -11,7 +10,7 @@ local function detect_venv()
   end
 end
 
-local venv, venv_path = detect_venv()
+local venv, venv_path = detect_venv(vim.fn.getcwd())
 
 return {
   {
