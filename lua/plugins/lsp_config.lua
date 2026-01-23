@@ -20,15 +20,12 @@ return {
     --   client.offset_encoding = 'utf-16'
     -- end
     config = function()
-      local lspconfig = require("lspconfig")
-
+      -- I don't remember what this is.
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-      local util = require("lspconfig.util")
 
       -- == PYTHON SPECIFICS == --
 
-      lspconfig.basedpyright.setup({
+      vim.lsp.config("basedpyright", {
         capabilities = capabilities,
         root_dir = vim.fn.getcwd(),
         settings = {
@@ -47,14 +44,15 @@ return {
           vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP hover doc" })
         end,
       })
+      vim.lsp.enable("basedpyright")
 
       if venv then
-        lspconfig.ruff.setup({})
+        vim.lsp.enable("ruff")
       end
 
       -- == END PYTHON SPECIFICS == --
 
-      lspconfig.rust_analyzer.setup({
+      vim.lsp.config("rust_analyzer", {
         settings = {
           ["rust-analyzer"] = {
             checkOnSave = {
@@ -69,9 +67,10 @@ return {
           },
         },
       })
+      vim.lsp.enable("rust_analyzer")
 
-      lspconfig.bashls.setup({})
-      lspconfig.dockerls.setup({})
+      vim.lsp.enable("bashls")
+      vim.lsp.enable("dockerls")
 
       vim.diagnostic.config({
         -- border makes it pretty, source will show me error msg source i.e. 'mypy' or 'ruff'

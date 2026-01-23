@@ -60,7 +60,6 @@ return {
       },
     },
 
-    -- does this still go here? or in formatters object?
     isort = {
       command = "./.venv/bin/isort", -- explicitly use project-local
       args = { "-" },
