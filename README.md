@@ -5,6 +5,8 @@ doomed to fail.
 
 ## Requirements
 
+- `ripgrep` for Telescope live grep
+
 ### C and Clang
 
 ```bash
