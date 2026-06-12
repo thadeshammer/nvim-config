@@ -17,10 +17,30 @@ return {
 
   opts = {
 
-    format_on_save = {
-      lsp_fallback = true,
-      timeout_ms = 500,
-    },
+    -- format on save for everything
+    -- format_on_save = {
+    --   lsp_fallback = true,
+    --   timeout_ms = 500,
+    -- },
+
+    format_on_save = function(bufnr)
+      local exclusions = { "sh", "bash" }
+      -- check filetype of current buffer
+      local ft = vim.bo[bufnr].filetype
+
+      -- If it's excluded, don't auto format; else do
+      for _, excluded_ft in ipairs(exclusions) do
+        if ft == excluded_ft then
+          return
+        end
+      end
+
+      -- Otherwise, auto format
+      return {
+        lsp_fallback = true,
+        timeout_ms = 500,
+      }
+    end,
 
     formatters_by_ft = {
       python = { "isort", "ruff_format" },
