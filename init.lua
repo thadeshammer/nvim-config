@@ -95,3 +95,29 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
   end,
 })
+
+-- Ansible language server (ansiblels) kick off
+
+vim.filetype.add({
+  pattern = {
+    -- Match playbooks, tasks, and role files explicitly
+    ['.*/playbooks/.*%.yml'] = 'yaml.ansible',
+    ['.*/playbooks/.*%.yaml'] = 'yaml.ansible',
+    ['.*/roles/.*%.yml'] = 'yaml.ansible',
+    ['.*/roles/.*%.yaml'] = 'yaml.ansible',
+    ['.*/tasks/.*%.yml'] = 'yaml.ansible',
+    ['.*/tasks/.*%.yaml'] = 'yaml.ansible',
+    -- Catch-all for main file patterns
+    ['site%.yml'] = 'yaml.ansible',
+    ['main%.yml'] = 'yaml.ansible',
+  },
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "yaml.ansible",
+  callback = function(args)
+    vim.lsp.start("ansiblels", {
+      bufnr = args.buf,
+    })
+  end,
+})

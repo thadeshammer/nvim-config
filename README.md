@@ -18,6 +18,11 @@ sudo apt install build-essential
 
 ### Language Servers
 
+### Ansible
+
+- ls: `npm install -g @ansible/ansible-language-server`
+- linter: `pipx install ansible ansible-lint`
+
 #### bash
 
 - formatter: `sudo apt install shfmt`

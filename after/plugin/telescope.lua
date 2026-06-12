@@ -1,4 +1,10 @@
 require("telescope").setup({
+  defaults = {
+    preview = {
+        timeout = 500,        -- Increase timeout for slow NFS shares
+        filesize_limit = 0.1, -- Limit previews to files < 100KB (optional)
+      },
+  },
   extensions = {
     recent_files = {
       ignore_patterns = {
