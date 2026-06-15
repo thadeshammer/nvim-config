@@ -17,14 +17,8 @@ return {
 
   opts = {
 
-    -- format on save for everything
-    -- format_on_save = {
-    --   lsp_fallback = true,
-    --   timeout_ms = 500,
-    -- },
-
     format_on_save = function(bufnr)
-      local exclusions = { "sh", "bash" }
+      local exclusions = { "sh", "bash", "yaml.ansible" }
       -- check filetype of current buffer
       local ft = vim.bo[bufnr].filetype
 
@@ -35,10 +29,12 @@ return {
         end
       end
 
+      local timeout = 500
+
       -- Otherwise, auto format
       return {
         lsp_fallback = true,
-        timeout_ms = 500,
+        timeout_ms = timeout,
       }
     end,
 
@@ -50,6 +46,7 @@ return {
       lua = { "stylua" },
       markdown = { "prettier" },
       rust = { "rustfmt" },
+      ["yaml.ansible"] = { "ansible-lint" },
     },
 
     default_format_opts = {
@@ -78,12 +75,11 @@ return {
           "2",
         },
       },
-    },
-
-    isort = {
-      command = "./.venv/bin/isort", -- explicitly use project-local
-      args = { "-" },
-      stdin = true,
+      isort = {
+        command = "./.venv/bin/isort", -- explicitly use project-local
+        args = { "-" },
+        stdin = true,
+      },
     },
   },
 }
