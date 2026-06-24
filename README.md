@@ -38,7 +38,9 @@ sudo apt install build-essential
 
 #### markdown
 
-- everyone's favorite formatter `prettier`: `npm install -g prettier`
+- everyone's favorite formatter `prettier`:
+  - `npm install -g prettier`
+  - `npm install -g prettier-plugin-jinja-template`
   - On Cachy/Arch need to install via package manager.
 - `npm install -g yarn` then `yarn install && yarn build && yarn run`
   - No, I don't remember what those three invocations do, Thades.
