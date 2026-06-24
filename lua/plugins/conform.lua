@@ -8,10 +8,20 @@ return {
     {
       "<leader>=",
       function()
-        require("conform").format({ async = true })
+        require("conform").format({ async = true, lsp_fallback = true })
       end,
-      mode = "",
-      desc = "Format buffer with Conform",
+      -- for Normal mode, format full buffer
+      mode = "n",
+      desc = "Format entire buffer with Conform",
+    },
+    {
+      "<leader>=",
+      function()
+        require("conform").format({ async = true, lsp_fallback = true })
+      end,
+      -- for Visual mode, format selection
+      mode = "v",
+      desc = "Format visual selection with Conform",
     },
   },
 
@@ -29,7 +39,7 @@ return {
         end
       end
 
-      local timeout = 500
+      local timeout = 3000
 
       -- Otherwise, auto format
       return {
@@ -46,7 +56,9 @@ return {
       lua = { "stylua" },
       markdown = { "prettier" },
       rust = { "rustfmt" },
-      ["yaml.ansible"] = { "ansible-lint" },
+      ["yaml.ansible"] = { "prettier" },
+      ["ansible"] = { "prettier" },
+      jinja = { "prettier" },
     },
 
     default_format_opts = {
@@ -60,12 +72,12 @@ return {
         stdin = true,
       },
       prettier = {
-        prepend_args = { "--prose-wrap", "always", "--print-width", "120" },
+        prepend_args = { "--prose-wrap", "always", "--print-width", "120", "--parser", "yaml", "--tab-width", "2" },
       },
       rustfmt = {
         command = "rustfmt",
         args = { "--emit=stdout" },
-        stdin = "true",
+        stdin = true,
       },
       stylua = {
         prepend_args = {
@@ -79,6 +91,10 @@ return {
         command = "./.venv/bin/isort", -- explicitly use project-local
         args = { "-" },
         stdin = true,
+      },
+      ["ansible-lint"] = {
+        -- prepend_args = { "--fix", "all" },
+        prepend_args = {},
       },
     },
   },
