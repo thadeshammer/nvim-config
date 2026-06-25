@@ -1,9 +1,9 @@
 require("telescope").setup({
   defaults = {
     preview = {
-        timeout = 500,        -- Increase timeout for slow NFS shares
-        filesize_limit = 0.1, -- Limit previews to files < 100KB (optional)
-      },
+      timeout = 500, -- Increase timeout for slow NFS shares
+      filesize_limit = 0.1, -- Limit previews to files < 100KB (optional)
+    },
   },
   extensions = {
     recent_files = {
@@ -16,6 +16,8 @@ require("telescope").setup({
 
 local builtin = require("telescope.builtin")
 
+-- If I remember correctly, I do these here and not remap due to the nature of this being
+-- loaded in after/
 vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "local system file search via telescope" })
 vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "git file search via telescope" })
 vim.keymap.set("n", "<leader>ps", function()

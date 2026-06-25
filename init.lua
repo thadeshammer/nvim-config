@@ -101,15 +101,15 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.filetype.add({
   pattern = {
     -- Match playbooks, tasks, and role files explicitly
-    ['.*/playbooks/.*%.yml'] = 'yaml.ansible',
-    ['.*/playbooks/.*%.yaml'] = 'yaml.ansible',
-    ['.*/roles/.*%.yml'] = 'yaml.ansible',
-    ['.*/roles/.*%.yaml'] = 'yaml.ansible',
-    ['.*/tasks/.*%.yml'] = 'yaml.ansible',
-    ['.*/tasks/.*%.yaml'] = 'yaml.ansible',
+    [".*/playbooks/.*%.yml"] = "yaml.ansible",
+    [".*/playbooks/.*%.yaml"] = "yaml.ansible",
+    [".*/roles/.*%.yml"] = "yaml.ansible",
+    [".*/roles/.*%.yaml"] = "yaml.ansible",
+    [".*/tasks/.*%.yml"] = "yaml.ansible",
+    [".*/tasks/.*%.yaml"] = "yaml.ansible",
     -- Catch-all for main file patterns
-    ['site%.yml'] = 'yaml.ansible',
-    ['main%.yml'] = 'yaml.ansible',
+    ["site%.yml"] = "yaml.ansible",
+    ["main%.yml"] = "yaml.ansible",
   },
 })
 
@@ -121,3 +121,34 @@ vim.api.nvim_create_autocmd("FileType", {
     })
   end,
 })
+
+-- XML is a thorn in my side, why does the world still use it.
+--
+-- Treesitter will BOMB if it sees XML, so we treat it as text app wide.
+vim.filetype.add({
+  extension = {
+    xml = "text",
+    out = "text",
+  },
+})
+
+-- OR we can try to fallback on standard Vim highlighting;
+-- I couldn't get this to work but maybe some day
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "xml",
+--   callback = function(args)
+--     local is_xml = vim.bo[args.buf].filetype == "xml"
+--     local is_preview = vim.bo[args.buf].buftype == "nofile"
+
+--     if is_xml or is_preview then
+--       pcall(vim.treesitter.stop, args.buf)
+--     end
+
+--     if is_xml then
+--       -- Stop tree-sitter from attaching to this buffer
+--       pcall(vim.treesitter.stop, args.buf)
+--       -- Force traditional vim regex syntax highlighting instead
+--       vim.bo[args.buf].syntax = "xml"
+--     end
+--   end,
+-- })
