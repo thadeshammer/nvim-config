@@ -10,7 +10,7 @@ vim.opt.expandtab = true
 vim.opt.textwidth = 120
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "json", "java", "python", "rust", "yaml", "yaml.ansible" },
+  pattern = { "json", "java", "python", "rust" },
   callback = function()
     vim.opt_local.tabstop = 4
     vim.opt_local.shiftwidth = 4
@@ -19,7 +19,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Filetype specific settings
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "xml", "bash", "sh" },
   callback = function()
@@ -32,6 +31,16 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "gdshader", "lua", "markdown" },
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.softtabstop = 2
+    vim.opt_local.expandtab = true
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "yaml", "yaml.ansible" },
   callback = function()
     vim.opt_local.tabstop = 2
     vim.opt_local.shiftwidth = 2
