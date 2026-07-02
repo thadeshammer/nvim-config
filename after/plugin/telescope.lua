@@ -4,6 +4,15 @@ require("telescope").setup({
       timeout = 500, -- Increase timeout for slow NFS shares
       filesize_limit = 0.1, -- Limit previews to files < 100KB (optional)
     },
+    dynamic_preview_title = true,
+    buffer_previewer_maker = function(filepath, bufnr, opts)
+      -- Extract just the filename from the absolute path
+      opts = opts or {}
+      opts.preview_title = vim.fs.basename(filepath)
+
+      -- Fall back to the default maker with our custom title injected
+      require("telescope.previewers").buffer_previewer_maker(filepath, bufnr, opts)
+    end,
   },
   extensions = {
     recent_files = {
