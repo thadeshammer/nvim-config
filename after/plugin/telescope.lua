@@ -1,3 +1,6 @@
+local previewers = require("telescope.previewers")
+local conf = require("telescope.config").values
+
 require("telescope").setup({
   defaults = {
     preview = {
@@ -5,13 +8,74 @@ require("telescope").setup({
       filesize_limit = 0.1, -- Limit previews to files < 100KB (optional)
     },
     dynamic_preview_title = true,
-    buffer_previewer_maker = function(filepath, bufnr, opts)
-      -- Extract just the filename from the absolute path
-      opts = opts or {}
-      opts.preview_title = vim.fs.basename(filepath)
 
-      -- Fall back to the default maker with our custom title injected
-      require("telescope.previewers").buffer_previewer_maker(filepath, bufnr, opts)
+    grep_previewer = function(opts)
+      -- Override "Grep Preview" with a hopefully identical doppleganger whose only difference
+      -- is that instead of "Grep Preview" it puts the filename (basename)
+      opts = opts or {}
+
+      -- Override stock "Grep Previewer" so only the base filename shows in telescope find-file
+      -- previewers (e.g. leader,f,f)
+      return previewers.new_buffer_previewer({
+        title = "Grep Preview",
+
+        -- This is the property the engine natively looks for in low-level previewers
+        dyn_title = function(_, entry)
+          local path = entry.path or entry.value or ""
+          if path ~= "" then
+            return vim.fs.basename(path)
+          end
+          return "Grep Preview"
+        end,
+
+        -- Tell telescope how to identify the buffer uniquely
+        get_buffer_by_name = function(_, entry)
+          return entry.path or entry.value
+        end,
+
+        -- Delegate the rendering work to the default engine maker safely
+        define_preview = function(self, entry, status)
+          local path = entry.path or entry.value
+          if path and path ~= "" then
+            conf.buffer_previewer_maker(path, self.state.bufnr, {
+              bufname = self.state.bufname,
+              winid = self.state.winid,
+              preview = opts.preview,
+            })
+          end
+        end,
+      })
+    end,
+
+    -- This is identical to grep previewer, but for capital-f File Previewer so that the recent
+    -- files plugin (which doesn't use grep previewer) will also show only base filename in preview
+    -- title
+    file_previewer = function(opts)
+      opts = opts or {}
+      return previewers.new_buffer_previewer({
+        title = "File Preview",
+        dyn_title = function(_, entry)
+          -- entry.path or entry.value ensures we catch recent_files' string structure
+          local path = entry.path or entry.value or ""
+          if path ~= "" then
+            return vim.fs.basename(path)
+          end
+          return "File Preview"
+        end,
+        get_buffer_by_name = function(_, entry)
+          return entry.path or entry.value
+        end,
+        define_preview = function(self, entry, status)
+          local path = entry.path or entry.value
+          if path and path ~= "" then
+            conf.buffer_previewer_maker(path, self.state.bufnr, {
+              bufname = self.state.bufname,
+              winid = self.state.winid,
+              preview = opts.preview,
+            })
+          end
+        end,
+      })
     end,
   },
   extensions = {
