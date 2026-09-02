@@ -116,7 +116,11 @@ vim.filetype.add({
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "yaml.ansible",
   callback = function(args)
-    vim.lsp.start("ansiblels", {
+    vim.lsp.start({
+      name = "ansiblels",
+      cmd = { "ansible-language-server", "--stdio" },
+      root_dir = vim.fs.root(args.buf, { "ansible.cfg", ".git" }),
+    }, {
       bufnr = args.buf,
     })
   end,
