@@ -72,7 +72,7 @@ return {
         stdin = true,
       },
       prettier = {
-        prepend_args = { "--prose-wrap", "always", "--print-width", "120", "--parser", "yaml", "--tab-width", "2" },
+        prepend_args = { "--prose-wrap", "always", "--print-width", "120", "--tab-width", "2" },
       },
       rustfmt = {
         command = "rustfmt",
